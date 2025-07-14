@@ -9,15 +9,14 @@ export async function GET(request: NextRequest) {
   const apiKey = searchParams.get('apiKey')
   
   try {
-    const host = url.replace(/^https?:\/\//, '')
+    // Use the correct configuration format based on our test results
     const client = new ChromaClient({
-      host: host,
+      host: url.replace(/^https?:\/\//, ''),
       port: parseInt(port),
       ssl: url.startsWith('https'),
       ...(apiKey && {
-        auth: {
-          provider: 'token',
-          credentials: apiKey
+        headers: {
+          'Authorization': `Bearer ${apiKey}`
         }
       })
     })
@@ -95,15 +94,14 @@ export async function POST(request: NextRequest) {
   const apiKey = searchParams.get('apiKey')
   
   try {
-    const host = url.replace(/^https?:\/\//, '')
+    // Use the correct configuration format based on our test results
     const client = new ChromaClient({
-      host: host,
+      host: url.replace(/^https?:\/\//, ''),
       port: parseInt(port),
       ssl: url.startsWith('https'),
       ...(apiKey && {
-        auth: {
-          provider: 'token',
-          credentials: apiKey
+        headers: {
+          'Authorization': `Bearer ${apiKey}`
         }
       })
     })
