@@ -1,4 +1,4 @@
-# Chroma Viewer
+# Chroma Miner
 
 An Electron application for viewing and managing ChromaDB databases with automatic port detection and cross-platform builds.
 
