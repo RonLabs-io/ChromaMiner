@@ -1,0 +1,47 @@
+{
+  "appId": "com.ronaldlopes.chroma-miner",
+  "productName": "Chroma Miner",
+  "directories": {
+    "output": "release"
+  },
+  "files": [
+    "electron-main.js",
+    "out/",
+    "package.json",
+    "public/",
+    "next.config.js",
+    ".next/",
+    "node_modules/"
+  ],
+  "asarUnpack": [
+    "node_modules/next/**/*",
+    "node_modules/@next/**/*",
+    "node_modules/react/**/*",
+    "node_modules/react-dom/**/*",
+    ".next/**/*"
+  ],
+  "extraResources": [
+    {
+      "from": "public/",
+      "to": "public/"
+    }
+  ],
+  "mac": {
+    "icon": "public/icon.png",
+    "category": "public.app-category.productivity"
+  },
+  "win": {
+    "icon": "public/icon.png",
+    "target": "nsis"
+  },
+  "linux": {
+    "icon": "public/icon.png",
+    "target": "AppImage",
+    "category": "Development",
+    "description": "Mine and explore your ChromaDB vector collections"
+  },
+  "nsis": {
+    "oneClick": false,
+    "allowToChangeInstallationDirectory": true
+  }
+} 

@@ -3,11 +3,24 @@
   "version": "0.1.0",
   "author": "Ronald Lopes",
   "private": true,
+  "main": "electron-main.js",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "icons": "node scripts/generate-icons.js",
+    "electron": "electron .",
+    "electron:dev": "concurrently \"npm run dev\" \"wait-on http://localhost:3000 && cross-env NODE_ENV=development electron .\"",
+    "electron:dev:dynamic": "concurrently \"node scripts/dev-server.js\" \"wait-on http://localhost:$(cat .port 2>/dev/null || echo 3000) && cross-env NODE_ENV=development electron .\"",
+    "electron:dev:auto": "node scripts/start-dev.js",
+    "electron:pack": "electron-builder",
+    "electron:build": "npm run icons && npm run build && electron-builder",
+    "electron:build:linux": "npm run icons && npm run build && electron-builder --linux",
+    "appimage:build": "npm run icons && npm run build && electron-builder --linux && chmod +x \"release/Chroma Miner-0.1.0.AppImage\"",
+    "appimage:run": "./release/Chroma\\ Miner-0.1.0.AppImage",
+    "tsc:electron": "tsc -p tsconfig.electron.json && mv dist/main.js dist/main.cjs && mv dist/preload.js dist/preload.cjs",
+    "clean": "rimraf dist out release"
   },
   "dependencies": {
     "autoprefixer": "^10.4.16",
@@ -26,8 +39,19 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "canvas": "^3.1.2",
+    "concurrently": "^9.2.0",
+    "cross-env": "^7.0.3",
+    "electron": "^37.2.1",
+    "electron-builder": "^26.0.12",
     "eslint": "^8",
     "eslint-config-next": "14.0.0",
-    "typescript": "^5"
+    "rimraf": "^6.0.1",
+    "sharp": "^0.34.3",
+    "typescript": "^5",
+    "wait-on": "^8.0.3"
+  },
+  "build": {
+    "extends": "./electron-builder.json"
   }
 }
